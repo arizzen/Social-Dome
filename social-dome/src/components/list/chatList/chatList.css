@@ -1,6 +1,7 @@
 .chatList {
   flex: 1;
   overflow: auto;
+
   .search {
     display: flex;
     align-items: center;
@@ -25,8 +26,11 @@
       }
 
       img {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
+        padding: 0;
+        margin-right: 0;
+        gap: 0px;
       }
     }
 
@@ -70,4 +74,54 @@
       }
     }
   }
+}
+
+@media (max-width : 1350px) {
+    .searchBar{
+      input{
+        width: 25%;
+      }
+  }
+}
+@media (max-width : 880px) {
+  .chatList{
+    .search{
+      gap: 10px;
+
+        .searchBar{
+          input{
+            padding: 0;
+          }
+          img{
+            width: 10px;
+            height: 10px;
+          }
+        }
+    }
+
+    .item{
+      gap: 10px;
+
+      img{
+        width: 30px;
+        height: 30px;
+      }
+      .texts{
+        gap: 0px;
+      }
+    }
+  }
+}
+@media (max-width : 425px) {
+  .chatList{
+    .search{
+      padding-left: 5px;
+      padding-right: 5px;
+      .searchBar{
+        gap: 5px;
+      }
+    }
+  }
+      
+  
 }

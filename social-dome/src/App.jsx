@@ -12,7 +12,19 @@ import { useChatStore } from "./lib/chatStore";
 const App = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();
   const { chatId } = useChatStore();
+  
 
+  /**
+   * Subscribes to the Firebase authentication state changes and fetches the user information 
+   * when the authentication state changes.
+   *
+   * This effect is used to initialize the user information in the application state when the
+   *  app first loads, and to update the user 
+   * information whenever the authentication state changes (e.g. when the user logs in or out).
+   *
+   * The effect returns a cleanup function that unsubscribes from the authentication state changes 
+   * when the component is unmounted.
+   */
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
       fetchUserInfo(user?.uid);

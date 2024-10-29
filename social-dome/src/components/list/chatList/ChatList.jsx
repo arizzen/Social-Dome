@@ -14,6 +14,13 @@ const ChatList = () => {
   const { currentUser } = useUserStore();
   const { chatId, changeChat } = useChatStore();
 
+  /**
+   * Fetches and updates the chat data for the current user from the Firestore database.
+   * This effect is used to initialize the chat list with the latest chat data for the current user.
+   * It subscribes to the "userchats" document in Firestore, which contains the chat data for the current user.
+   * The effect then maps over the chat items, fetching the user data for each chat, and updates the chat list with the combined data.
+   * The chat list is sorted by the updatedAt timestamp in descending order.
+   */
   useEffect(() => {
     const unSub = onSnapshot(
       doc(db, "userchats", currentUser.id),
@@ -40,6 +47,16 @@ const ChatList = () => {
     };
   }, [currentUser.id]);
 
+  /**
+   * Handles the selection of a chat item in the chat list.
+   * Marks the selected chat as seen by updating the `isSeen` property in the user's chat data.
+   * Updates the user's chat data in Firestore with the updated `isSeen` value.
+   * Calls the `changeChat` function from the `useChatStore` to update the currently selected chat.
+   *
+   * chat - The selected chat object.
+   * chat.chatId - The unique identifier of the chat.
+   * chat.user - The user object associated with the chat.
+   */
   const handleSelect = async (chat) => {
     const userChats = chats.map((item) => {
       const { user, ...rest } = item;
@@ -73,6 +90,11 @@ const ChatList = () => {
       <div className="search">
         <div className="searchBar">
           <img src="./search.png" alt="" />
+          {/**
+           * Renders an input field that allows the user to search for chats by username.
+           * The input value is stored in the `input` state variable, which is updated as the user types.
+           * The `setInput` function is used to update the `input` state variable.
+           */}
           <input
             type="text"
             placeholder="Search"
@@ -104,6 +126,14 @@ const ChatList = () => {
             alt=""
           />
           <div className="texts">
+            {/**
+             * Conditionally renders the username of the chat user, or the generic "User" text if the current user has blocked the chat user.
+             * chat - The chat object containing the user information.
+             * chat.user.username - The username of the chat user.
+             * chat.user.blocked - An array of user IDs that the current user has blocked.
+             * currentUser.id - The ID of the current user.
+             * A span element containing the username or "User" text.
+             */}
             <span>
               {chat.user.blocked.includes(currentUser.id)
                 ? "User"
@@ -114,6 +144,10 @@ const ChatList = () => {
         </div>
       ))}
 
+      {/**
+       * Conditionally renders the `AddUser` component if `addMode` is true.
+       * This allows the user to add a new chat to the list.
+       */}
       {addMode && <AddUser />}
     </div>
   );

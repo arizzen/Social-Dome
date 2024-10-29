@@ -69,3 +69,20 @@
     background-color: #dddddd35;
   }
 }
+
+@media (max-width: 868px) {
+  .login {  
+    gap: 50px;
+  }
+}
+
+@media (max-width: 700px) {
+  .login {
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  .item{
+    margin-top: 20px;
+    margin-bottom: 20px;  
+  }
+}

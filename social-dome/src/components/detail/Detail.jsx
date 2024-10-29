@@ -9,6 +9,12 @@ const Detail = () => {
     useChatStore();
   const { currentUser } = useUserStore();
 
+  /**
+   * Toggles the blocked status of the current user with the user associated with the current chat.
+   * If the current user is not blocked by the other user, adds the other user's ID to the current user's blocked list.
+   * If the current user is already blocked by the other user, removes the other user's ID from the current user's blocked list.
+   * Updates the blocked status in the Firestore database and updates the chat store's blocked status.
+   */
   const handleBlock = async () => {
     if (!user) return;
 
@@ -24,6 +30,9 @@ const Detail = () => {
     }
   };
 
+  /**
+   * Logs the current user out of the application and resets the chat state.
+   */
   const handleLogout = () => {
     auth.signOut();
     resetChat()
@@ -31,6 +40,10 @@ const Detail = () => {
 
   return (
     <div className="detail">
+      {/**
+       * Renders a user profile section with the user's avatar, username, and a brief description.
+       * This component is likely used within the larger `Detail` component to display information about the current chat user.
+       */}
       <div className="user">
         <img src={user?.avatar || "./avatar.png"} alt="" />
         <h2>{user?.username}</h2>
@@ -93,6 +106,13 @@ const Detail = () => {
             <img src="./arrowUp.png" alt="" />
           </div>
         </div>
+        {/**
+         * Renders a button that allows the user to block or unblock another user.
+         * The button text changes based on the current block status of the user.
+         *  handleBlock - A function that is called when the button is clicked to handle the blocking/unblocking logic.
+         * isCurrentUserBlocked - A flag indicating whether the current user is blocked by the other user.
+         * isReceiverBlocked - A flag indicating whether the other user is blocked by the current user.
+         */}
         <button onClick={handleBlock}>
           {isCurrentUserBlocked
             ? "You are Blocked!"
@@ -100,6 +120,9 @@ const Detail = () => {
             ? "User blocked"
             : "Block User"}
         </button>
+        {/**
+         * Handles the logout functionality when the user clicks the "Logout" button.
+         */}
         <button className="logout" onClick={handleLogout}>
           Logout
         </button>

@@ -7,14 +7,13 @@ const Userinfo = () => {
 
   return (
     <div className='userInfo'>
+      {/**
+       * Renders a user information component that displays the current user's avatar and username.
+       * This component is used within the list view to show information about the currently logged in user.
+       */}
       <div className="user">
         <img src={currentUser.avatar || "./avatar.png"} alt="" />
         <h2>{currentUser.username}</h2>
-      </div>
-      <div className="icons">
-        <img src="./more.png" alt="" />
-        <img src="./video.png" alt="" />
-        <img src="./edit.png" alt="" />
       </div>
     </div>
   )
