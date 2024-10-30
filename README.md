@@ -39,7 +39,7 @@ npm run dev
 ## Technologies
 
 - Frontend: React.js
-- Backend: Node.js
+- Backend: firebase
 - Database: Firebase
 - Authentication: firebase
 
